@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'oidc_provider',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +131,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # oidc_provider related settings
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = 'core/accounts/login/'
+OIDC_LOGIN_URL = '../accounts/login/'
 OIDC_USERINFO = 'archeun.core.oidc_provider_settings.userinfo'
 
