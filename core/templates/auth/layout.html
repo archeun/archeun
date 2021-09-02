@@ -1,13 +1,14 @@
 {% extends "core/base.html" %}
 {% load static %}
 {% block content %}
-<div class="grid grid-cols-1 place-items-center place-content-center border h-screen">
+
+<div class="grid grid-cols-1 place-items-center place-content-center h-screen">
   <div class="shadow rounded-md w-3/12">
     <div class="flex justify-center">
       <img src="{% static 'core/img/archeun-logo.svg' %}" alt="archeun logo" class="rounded-t-md">
     </div>
     <div class="container p-5">
-      {% block form-content %} {% endblock form-content %}
+      {% block auth-content %} {% endblock auth-content %}
     </div>
     <div class="flex justify-center container p-5 border-t text-gray-500 text-sm bg-gray-100">
       © 2020-2021 - archeun

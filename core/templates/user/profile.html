@@ -1,0 +1,6 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+Hello, {{ user.get_full_name }} [{{ user.email }}]!
+<div><a href="{% url 'logout' %}">Logout</a></div>
+{% endblock content %}

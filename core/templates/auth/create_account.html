@@ -1,0 +1,28 @@
+{% extends "auth/layout.html" %}
+{% load static %}
+{% block additional_css %}
+<link rel="stylesheet" href="{% static 'core/css/auth/main.css' %}">
+{% endblock additional_css %}
+
+{% block auth-content %}
+
+<form method="post">
+    {% if messages %}
+    {% for message in messages %}
+
+    <div class="text-red-600 form-errors">
+        {{message | safe}}
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p><input type="submit" name="submit" value="Create Account" /></p>
+</form>
+
+<p><a href="{% url 'login' %}">Already have an account?</a></p>
+
+{% endblock auth-content %}

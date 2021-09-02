@@ -1,0 +1,8 @@
+{% extends "auth/layout.html" %}
+{% block auth-content %}
+
+Successfully logged out!
+
+<div><a href="{% url 'login' %}">Login again</a></div>
+
+{% endblock auth-content %}

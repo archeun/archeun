@@ -130,8 +130,8 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# oidc_provider related settings
-LOGIN_URL = 'core/accounts/login/'
-OIDC_LOGIN_URL = '../accounts/login/'
-OIDC_USERINFO = 'archeun.core.oidc_provider_settings.userinfo'
+LOGIN_URL = '/core/auth/login/'
+LOGIN_REDIRECT_URL = '/core/user/profile'
 
+# oidc_provider related settings
+OIDC_USERINFO = 'archeun.core.oidc_provider_settings.userinfo'

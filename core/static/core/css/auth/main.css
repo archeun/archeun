@@ -1,0 +1,41 @@
+form > p {
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+form > p > input[type='text'], input[type='password'], input[type='email'] {
+    width: 100%;
+    border-radius: 5px;
+}
+
+form > p > label {
+    font-weight: bold;
+}
+
+form > p > input[type='submit'] {
+    padding: 5px;
+    width: 100%;
+}
+
+form > ul {
+    list-style: inherit;
+    font-size: 0.8em;
+    margin-left: 20px;
+    color: teal;
+}
+
+.form-errors > ul {
+    list-style: inherit;
+    font-size: 0.8em;
+    margin-left: 20px;
+}
+
+.form-errors > ul > ul {
+    list-style: inside;
+}
+
+.helptext {
+    font-size: 0.8em;
+    color: teal;
+    margin-top: -10px;
+}
