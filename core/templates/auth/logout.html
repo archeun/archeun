@@ -1,8 +1,10 @@
 {% extends "auth/layout.html" %}
 {% block auth-content %}
 
-    Successfully logged out!
+    <p class="text-center arch-message arch-success-message">
+        Successfully logged out!
+    </p>
 
-    <div><a href="{% url 'login' %}">Login again</a></div>
+    <p class="text-center mt-2">You can <a href="{% url 'login' %}">Login</a> again</p>
 
 {% endblock auth-content %}
