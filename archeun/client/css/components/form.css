@@ -1,0 +1,27 @@
+.arch-form-label {
+    @apply font-bold text-archTealDark;
+}
+
+.arch-form-input-p > input {
+    @apply w-full rounded;
+}
+
+.arch-form-field {
+    @apply mb-6 mt-6;
+}
+
+.arch-form-help-text {
+    @apply text-xs mt-1 text-archGray;
+}
+
+.arch-form-help-text > ul > li {
+    @apply text-xs mt-1 text-archGray;
+}
+
+.arch-form-btn {
+    @apply p-2 rounded font-bold
+}
+
+.arch-form-btn-primary {
+    @apply bg-archTeal text-white
+}

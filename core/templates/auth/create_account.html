@@ -1,28 +1,58 @@
 {% extends "auth/layout.html" %}
 {% load static %}
-{% block additional_css %}
-<link rel="stylesheet" href="{% static 'core/css/auth/main.css' %}">
-{% endblock additional_css %}
 
 {% block auth-content %}
 
-<form method="post">
-    {% if messages %}
-    {% for message in messages %}
+    <form method="post">
+        {% if messages %}
+            {% for message in messages %}
 
-    <div class="text-red-600 form-errors">
-        {{message | safe}}
-    </div>
+                <div class="text-red-600 form-errors">
+                    {{ message | safe }}
+                </div>
 
-    {% endfor %}
+            {% endfor %}
 
-    {% endif %}
+        {% endif %}
 
-    {% csrf_token %}
-    {{ form.as_p }}
-    <p><input type="submit" name="submit" value="Create Account" /></p>
-</form>
+        {% csrf_token %}
 
-<p><a href="{% url 'login' %}">Already have an account?</a></p>
+        <div class="arch-form-field">
+            <p class="arch-form-label">{{ form.username.label_tag }}</p>
+            <p class="arch-form-input-p">{{ form.username }}</p>
+            <div class="arch-form-help-text">{{ form.username.help_text }}</div>
+        </div>
+
+        <div class="arch-form-field">
+            <p class="arch-form-label">{{ form.password1.label_tag }}</p>
+            <p class="arch-form-input-p">{{ form.password1 }}</p>
+            <div class="arch-form-help-text">{{ form.password1.help_text }}</div>
+        </div>
+        <div class="arch-form-field">
+            <p class="arch-form-label">{{ form.password2.label_tag }}</p>
+            <p class="arch-form-input-p">{{ form.password2 }}</p>
+            <div class="arch-form-help-text">{{ form.password2.help_text }}</div>
+        </div>
+        <div class="arch-form-field">
+            <p class="arch-form-label">{{ form.first_name.label_tag }}</p>
+            <p class="arch-form-input-p">{{ form.first_name }}</p>
+            <div class="arch-form-help-text">{{ form.first_name.help_text }}</div>
+        </div>
+        <div class="arch-form-field">
+            <p class="arch-form-label">{{ form.last_name.label_tag }}</p>
+            <p class="arch-form-input-p">{{ form.last_name }}</p>
+            <div class="arch-form-help-text">{{ form.last_name.help_text }}</div>
+        </div>
+        <div class="arch-form-field">
+            <p class="arch-form-label">{{ form.email.label_tag }}</p>
+            <p class="arch-form-input-p">{{ form.email }}</p>
+            <div class="arch-form-help-text">{{ form.email.help_text }}</div>
+        </div>
+
+        <p class="mb-4"><input type="submit" name="submit" value="Create Account"
+                               class="arch-form-btn arch-form-btn-primary w-full"/></p>
+    </form>
+
+    <p class="text-sm text-center">Already have an account? <a href="{% url 'login' %}">Login</a></p>
 
 {% endblock auth-content %}

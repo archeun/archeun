@@ -2,17 +2,17 @@
 {% load static %}
 {% block content %}
 
-<div class="grid grid-cols-1 place-items-center place-content-center mt-16 mb-16">
-  <div class="shadow rounded-md w-4/12">
-    <div class="flex justify-center">
-      <img src="{% static 'core/img/archeun-logo.svg' %}" alt="archeun logo" class="rounded-t-md">
+    <div class="grid grid-cols-1 place-items-center place-content-center mt-16 mb-16">
+        <div class="shadow rounded-md w-4/12">
+            <div class="flex justify-center">
+                <img src="{% static 'core/img/archeun-logo.svg' %}" alt="archeun logo" class="rounded-t-md">
+            </div>
+            <div class="container p-5">
+                {% block auth-content %} {% endblock auth-content %}
+            </div>
+            <div class="flex justify-center container p-5 border-t text-gray-500 text-sm bg-gray-100">
+                © 2020-2021 - archeun
+            </div>
+        </div>
     </div>
-    <div class="container p-5">
-      {% block auth-content %} {% endblock auth-content %}
-    </div>
-    <div class="flex justify-center container p-5 border-t text-gray-500 text-sm bg-gray-100">
-      © 2020-2021 - archeun
-    </div>
-  </div>
-</div>
 {% endblock content %}

@@ -24,6 +24,7 @@ class CreateAccountView(View):
     TODO: Refactor this function to handle the error messages properly
     TODO: Upon re direction preserve filled values
     '''
+
     def post(self, request):
         form = CreateAccountForm(request.POST)
         if form.is_valid():
