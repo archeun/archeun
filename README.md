@@ -1,6 +1,8 @@
 # archeun
 
-This repository containes the code of the core archeun platform, which includes,
+![alt text](https://github.com/archeun/archeun/blob/image.jpg?raw=true)
+
+This repository contains the code of the core archeun platform, which includes,
 
 - User account and organization provisioning
 - Authentication service
