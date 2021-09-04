@@ -15,3 +15,7 @@ tests/report/
 db.sqlite3
 .vscode
 .idea
+/index.html
+/package.json
+/tailwind.config.js
+/node_modules
