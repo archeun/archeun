@@ -4,7 +4,7 @@
   "description": "This repository containes the code of the core archeun platform",
   "main": "index.js",
   "scripts": {
-    "build": "postcss css/tailwind.css -o ../../core/static/core/css/tailwind-build.css"
+    "build-css": "postcss css/tailwind.css -o ../../core/static/core/css/tailwind-build.css"
   },
   "repository": {
     "type": "git",
