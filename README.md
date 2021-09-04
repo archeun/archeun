@@ -21,19 +21,15 @@ Please follow the below instructions on how to setup the system for development
 1. Clone the repository.
    ```
    git clone https://github.com/archeun/archeun
-
 1. Install the python dependencies by running the below command inside the codebase root.
    ```
    pip install -r requirements.txt
-
 1. Navigate to the <codebase>/archeun/client directory and install the required client-side libraries
     ```
    npm install
-
 1. Build the tailwind css into the static directory
     ```
    npm run build-css
-   
 1. Make sure the database connection settings match your local values. The default settings can be found in `<codebase>/archeun/archeun/settings.yml`
    You can setup your own values here. 
    ```
@@ -47,22 +43,18 @@ Please follow the below instructions on how to setup the system for development
             'PORT': '3306',
         }
     }
-
 1. Start the mysql server and create an empty database with the value you specified for the `NAME` attribute in the above settings
 
 1. Prepare and push the migrations into the database by running the below 2 commands inside the codebase root
     ```
    python manage.py makemigrations
    python manage.py migrate
-   
 1. Create a super user who can log into the admin site. Follow the prompts by giving necessary information.
     ```
-   python manage.py createsuperuser   
-
+   python manage.py createsuperuser
 1. If everything goes well, spin up the development server by running the below command
     ```
    python manage.py runserver
-   
 1. This will start the development server and, the system can be accessed at `http://127.0.0.1:8000/`. The home page will not work at the moment.
 
 1. Navigate to the `http://127.0.0.1:8000/admin/login` and log into the system by providing the super user credentials we created in step 7.
@@ -106,4 +98,3 @@ User related routes are defined under `core/user`. These screens are only access
    for eg:
    
    http://127.0.0.1:8000/core/openid/authorize?client_id=200889&redirect_uri=http://localhost:5000/archeun-client&response_type=code&scope=openid email profile&state=123123
-   
