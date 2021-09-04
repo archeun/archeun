@@ -16,7 +16,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pylint-django[with_django]
+        pip install -r requirements.txt
     - name: Analysing the code with pylint-django
       run: |
         DJANGO_SETTINGS_MODULE=archeun.settings pylint --load-plugins pylint_django `find . -type f -name '*.py'`
