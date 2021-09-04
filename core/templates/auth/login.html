@@ -8,12 +8,22 @@
 
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
-        <p>{{ form.username.label_tag }}</p>
-        <p>{{ form.username }}</p>
-        <p>{{ form.password.label_tag }}</p>
-        <p>{{ form.password }}</p>
 
-        <p><input id="login-btn" type="submit" value="Login"/></p>
+        <div class="arch-form-field">
+            <p class="arch-form-label">{{ form.username.label_tag }}</p>
+            <p class="arch-form-input-p">{{ form.username }}</p>
+            <div class="arch-form-help-text">{{ form.username.help_text }}</div>
+        </div>
+        <div class="arch-form-field">
+            <p class="arch-form-label">{{ form.password.label_tag }}</p>
+            <p class="arch-form-input-p">{{ form.password }}</p>
+            <div class="arch-form-help-text">{{ form.password.help_text }}</div>
+        </div>
+
+        <p class="mb-4">
+            <input type="submit" name="submit" value="Login"
+                   class="arch-form-btn arch-form-btn-primary w-full"/>
+        </p>
         <p><input type="hidden" name="next" value="{{ next }}"/></p>
     </form>
 
