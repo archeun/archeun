@@ -1,3 +1,19 @@
 a {
-    @apply text-archRed font-bold cursor-pointer
+    @apply text-archTealDark underline font-bold cursor-pointer
+}
+
+.arch-message {
+    @apply text-sm bg-archGray text-white p-2 rounded text-center opacity-80;
+}
+
+.arch-success-message {
+    @apply bg-archTeal;
+}
+
+.arch-info-message {
+    @apply bg-archTealDark;
+}
+
+.arch-error-message {
+    @apply bg-archRed;
 }
