@@ -1,4 +1,3 @@
-from django.contrib.auth import views as auth_views
 from django.urls import include, path
 from core import views as arch_core_views
 
@@ -22,11 +21,11 @@ urlpatterns = [
 
     # Once clicked on the password reset link in the email user will be redirected to this screen to change the password
     path('auth/password-reset-confirm/<uidb64>/<token>/',
-         auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+         arch_core_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
 
     # Once the change password form is submitted, user is redirected to this screen
     path('auth/password-reset-complete/',
-         auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+         arch_core_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     path('auth/create-account/',
          arch_core_views.CreateAccountView.as_view(), name='create_account'),

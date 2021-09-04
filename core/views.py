@@ -45,3 +45,11 @@ class PasswordResetView(auth_views.PasswordResetView):
 
 class PasswordResetDoneView(auth_views.PasswordResetDoneView):
     template_name = 'auth/password_reset_done.html'
+
+
+class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+    template_name = 'auth/password_reset_confirm.html'
+
+
+class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
+    template_name = 'auth/password_reset_complete.html'
