@@ -1,8 +1,10 @@
 {% extends "auth/layout.html" %}
 {% block auth-content %}
 
-    Successfully created the account!
+    <p class="text-center arch-message arch-success-message">
+        Successfully created the account
+    </p>
 
-    <div><a href="{% url 'login' %}">Login</a></div>
+    <p class="text-center mt-2">You can <a href="{% url 'login' %}">Login</a> to the system now</p>
 
 {% endblock auth-content %}

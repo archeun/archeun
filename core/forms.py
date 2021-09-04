@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm as BaseCreateAccountForm
 from django.contrib.auth.models import User
 from django import forms
 from django.core.exceptions import ValidationError
+from django.core.validators import MaxLengthValidator
 
 
 class CreateAccountForm(BaseCreateAccountForm):
@@ -9,12 +10,14 @@ class CreateAccountForm(BaseCreateAccountForm):
         label='First Name',
         min_length=1,
         max_length=150,
+        validators=[MaxLengthValidator(150)],
         help_text='Required. 150 characters or fewer',
     )
     last_name = forms.CharField(
         label='Last Name',
         min_length=1,
         max_length=150,
+        validators=[MaxLengthValidator(150)],
         help_text='Required. 150 characters or fewer',
     )
     email = forms.EmailField(
@@ -28,12 +31,6 @@ class CreateAccountForm(BaseCreateAccountForm):
         if r.count():
             raise ValidationError("Email already exists")
         return email
-
-    def clean_first_name(self):
-        return self.cleaned_data['first_name']
-
-    def clean_last_name(self):
-        return self.cleaned_data['last_name']
 
     class Meta:
         model = User
