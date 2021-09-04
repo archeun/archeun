@@ -3,7 +3,7 @@
 }
 
 .arch-form-input-p > input {
-    @apply w-full rounded;
+    @apply w-full rounded border border-archTealDark p-1;
 }
 
 .arch-form-field {
