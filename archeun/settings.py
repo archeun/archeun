@@ -124,6 +124,9 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
 LOGIN_URL = '/core/auth/login/'
 LOGIN_REDIRECT_URL = '/core/user/profile'
 
