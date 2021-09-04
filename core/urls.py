@@ -1,35 +1,39 @@
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
-from core.views import UserProfileView, CreateAccountView, CreateAccountSuccessView
+from core import views as arch_core_views
 
 urlpatterns = [
     path('openid/',
          include('oidc_provider.urls', namespace='oidc_provider')),
 
     path('auth/login/',
-         auth_views.LoginView.as_view(template_name='auth/login.html'), name='login'),
+         arch_core_views.LoginView.as_view(template_name='auth/login.html'), name='login'),
 
     path('auth/logout/',
-         auth_views.LogoutView.as_view(template_name='auth/logout.html'), name='logout'),
+         arch_core_views.LogoutView.as_view(template_name='auth/logout.html'), name='logout'),
 
+    # Form view for entering the email address to receive password reset link
     path('auth/password-reset/',
-         auth_views.PasswordResetView.as_view(), name='password_reset'),
+         arch_core_views.PasswordResetView.as_view(), name='password_reset'),
 
+    # Once submitted the password_reset form, user will be redirected to this screen
+    path('auth/password-reset-done/',
+         arch_core_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+
+    # Once clicked on the password reset link in the email user will be redirected to this screen to change the password
     path('auth/password-reset-confirm/<uidb64>/<token>/',
          auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
 
-    path('auth/password-reset-done/',
-         auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-
+    # Once the change password form is submitted, user is redirected to this screen
     path('auth/password-reset-complete/',
          auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     path('auth/create-account/',
-         CreateAccountView.as_view(), name='create_account'),
+         arch_core_views.CreateAccountView.as_view(), name='create_account'),
 
     path('auth/create-account-success/',
-         CreateAccountSuccessView.as_view(), name='create_account_success'),
+         arch_core_views.CreateAccountSuccessView.as_view(), name='create_account_success'),
 
     path('user/profile/',
-         UserProfileView.as_view(), name='user_profile'),
+         arch_core_views.UserProfileView.as_view(), name='user_profile'),
 ]
