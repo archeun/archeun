@@ -19,4 +19,4 @@ jobs:
         pip install pylint-django[with_django]
     - name: Analysing the code with pylint-django
       run: |
-        pylint --load-plugins pylint_django --django-settings-module=archeun.settings `find . -type f -name '*.py'`
+        DJANGO_SETTINGS_MODULE=archeun.settings pylint --load-plugins pylint_django `find . -type f -name '*.py'`
