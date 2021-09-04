@@ -25,3 +25,7 @@
 .arch-form-btn-primary {
     @apply bg-archTeal text-white
 }
+
+.arch-form-field-error {
+    @apply text-archRed text-xs;
+}

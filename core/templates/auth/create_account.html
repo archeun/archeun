@@ -4,29 +4,20 @@
 {% block auth-content %}
 
     <form method="post">
-        {% if messages %}
-            {% for message in messages %}
-
-                <div class="text-red-600 form-errors">
-                    {{ message | safe }}
-                </div>
-
-            {% endfor %}
-
-        {% endif %}
-
         {% csrf_token %}
 
         <div class="arch-form-field">
             <p class="arch-form-label">{{ form.username.label_tag }}</p>
             <p class="arch-form-input-p">{{ form.username }}</p>
             <div class="arch-form-help-text">{{ form.username.help_text }}</div>
+            <div class="arch-form-field-error">{% for error in form_errors.username %} {{ error }}{% endfor %}</div>
         </div>
 
         <div class="arch-form-field">
             <p class="arch-form-label">{{ form.password1.label_tag }}</p>
             <p class="arch-form-input-p">{{ form.password1 }}</p>
             <div class="arch-form-help-text">{{ form.password1.help_text }}</div>
+            <div class="arch-form-field-error">{% for error in form_errors.password2 %} {{ error }}{% endfor %}</div>
         </div>
         <div class="arch-form-field">
             <p class="arch-form-label">{{ form.password2.label_tag }}</p>
@@ -37,16 +28,19 @@
             <p class="arch-form-label">{{ form.first_name.label_tag }}</p>
             <p class="arch-form-input-p">{{ form.first_name }}</p>
             <div class="arch-form-help-text">{{ form.first_name.help_text }}</div>
+            <div class="arch-form-field-error">{% for error in form_errors.first_name %} {{ error }}{% endfor %}</div>
         </div>
         <div class="arch-form-field">
             <p class="arch-form-label">{{ form.last_name.label_tag }}</p>
             <p class="arch-form-input-p">{{ form.last_name }}</p>
             <div class="arch-form-help-text">{{ form.last_name.help_text }}</div>
+            <div class="arch-form-field-error">{% for error in form_errors.last_name %} {{ error }}{% endfor %}</div>
         </div>
         <div class="arch-form-field">
             <p class="arch-form-label">{{ form.email.label_tag }}</p>
             <p class="arch-form-input-p">{{ form.email }}</p>
             <div class="arch-form-help-text">{{ form.email.help_text }}</div>
+            <div class="arch-form-field-error">{% for error in form_errors.email %} {{ error }}{% endfor %}</div>
         </div>
 
         <p class="mb-4"><input type="submit" name="submit" value="Create Account"

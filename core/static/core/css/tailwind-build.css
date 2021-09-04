@@ -854,6 +854,13 @@ a {
   color: rgba(255, 255, 255, var(--tw-text-opacity))
 }
 
+.arch-form-field-error {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  --tw-text-opacity: 1;
+  color: rgba(244, 91, 105, var(--tw-text-opacity));
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

@@ -1,8 +1,6 @@
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib import messages
 from django.conf import settings
 from core.forms import CreateAccountForm
 
@@ -18,10 +16,13 @@ class UserProfileView(BaseUserView):
 
 class CreateAccountView(View):
     def get(self, request):
-        return render(request, 'auth/create_account.html', {'form': CreateAccountForm()})
+        return render(
+            request,
+            'auth/create_account.html',
+            {'form': CreateAccountForm(), 'form_errors': request.session.pop('form_errors', {})}
+        )
 
     '''
-    TODO: Refactor this function to handle the error messages properly
     TODO: Upon re direction preserve filled values
     '''
 
@@ -31,28 +32,7 @@ class CreateAccountView(View):
             form.save()
             return redirect('create_account_success')
         else:
-            form_errors = dict(form.errors)
-            errors = {
-                "Username": form_errors.get("username", False),
-                "Password Confirmation": form_errors.get("password", False),
-                "Password": form_errors.get("password2", False),
-                "Email": form_errors.get("email", False),
-                "First Name": form_errors.get("first_name", False),
-                "Last Name": form_errors.get("last_name", False),
-            }
-            for fieldname in errors:
-                if errors[fieldname]:
-                    errormessage = '<ul><li>' + fieldname + '</li><ul>'
-                    fielderrors = errors[fieldname]
-                    for fielderror in fielderrors:
-                        errormessage = errormessage + '<li>' + fielderror + '</li>'
-
-                    errormessage = errormessage + '</ul></ul>'
-                    messages.add_message(
-                        request,
-                        messages.ERROR,
-                        errormessage
-                    )
+            request.session['form_errors'] = form.errors
             return redirect('create_account')
 
 

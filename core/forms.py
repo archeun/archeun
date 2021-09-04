@@ -6,10 +6,21 @@ from django.core.exceptions import ValidationError
 
 class CreateAccountForm(BaseCreateAccountForm):
     first_name = forms.CharField(
-        label='First Name', min_length=1, max_length=200)
+        label='First Name',
+        min_length=1,
+        max_length=150,
+        help_text='Required. 150 characters or fewer',
+    )
     last_name = forms.CharField(
-        label='Last Name', min_length=1, max_length=200)
-    email = forms.EmailField(label='Email')
+        label='Last Name',
+        min_length=1,
+        max_length=150,
+        help_text='Required. 150 characters or fewer',
+    )
+    email = forms.EmailField(
+        label='Email',
+        help_text='Required. A valid email address in the user@example.com format',
+    )
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
@@ -26,5 +37,4 @@ class CreateAccountForm(BaseCreateAccountForm):
 
     class Meta:
         model = User
-        fields = ["username", "password1", "password2",
-                  "first_name", "last_name", "email"]
+        fields = ["username", "password1", "password2", "first_name", "last_name", "email"]
