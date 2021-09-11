@@ -4,8 +4,9 @@
     Organizations
 
     <ul>
-    <li>orga 1</li>
-    <li>orga 2</li>
+        {% for organization in organizations %}
+            <li>{{ organization }}</li>
+        {% endfor %}
     </ul>
 
 {% endblock content %}
