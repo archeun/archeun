@@ -9,7 +9,7 @@ from django.conf import settings
 from django.views.generic.edit import FormView
 from django.contrib.auth import views as auth_views
 from core.forms import CreateAccountForm
-from core.models import UserProfile
+from core.models import Employee
 
 
 class BaseUserView(LoginRequiredMixin, View):
@@ -58,16 +58,16 @@ class CreateAccountView(FormView):
         This function is called if the user creation form is valid
         """
         user = form.save()
-        self.create_profile(user)
+        self.create_employee(user)
         return super().form_valid(form)
 
-    def create_profile(self, user: User):
+    def create_employee(self, user: User):
         """
-        Create a UserProfile for the given user
+        Create an employee for the given user
         """
-        user_profile = UserProfile()
-        user_profile.user = user
-        user_profile.save()
+        employee = Employee()
+        employee.user = user
+        employee.save()
 
 
 class CreateAccountSuccessView(View):
