@@ -1,0 +1,17 @@
+{% extends 'console/base.html' %}
+
+{% block content %}
+    Organizations
+
+    <ul>
+        {% for organization in organizations %}
+            <li>
+                <a href="{% url 'arch-console-org-update' pk=organization.id %}">{{ organization }}</a>
+                <a href="{% url 'arch-console-org-delete' pk=organization.id %}">X</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'arch-console-org-create' %}">Create Organization</a>
+
+{% endblock content %}

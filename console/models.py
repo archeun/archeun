@@ -1,6 +1,8 @@
 """console.models"""
 
 from django.db import models
+from django.urls import reverse
+
 from core.models import Employee
 
 
@@ -24,6 +26,13 @@ class Organization(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        """
+        Returns the url of the detail view of the model objects
+        @return: The url of the detail view of the model objects
+        """
+        return reverse('arch-console-org-detail', kwargs={'pk': self.pk})
+
     class Meta:
         db_table = 'arch_console_organization'
 
@@ -40,6 +49,13 @@ class Team(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        """
+        Returns the url of the detail view of the model objects
+        @return: The url of the detail view of the model objects
+        """
+        return reverse('arch-console-org-detail', kwargs={'pk': self.pk})
 
     class Meta:
         db_table = 'arch_console_team'

@@ -1,0 +1,31 @@
+{% extends 'console/base.html' %}
+
+{% block content %}
+    Add an organization
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="arch-form-field">
+            <p class="arch-form-label">{{ form.name.label_tag }}</p>
+            <p class="arch-form-input-p">{{ form.name }}</p>
+            <div class="arch-form-help-text">{{ form.name.help_text }}</div>
+            <div class="arch-form-field-error">{% for error in form.errors.name %} {{ error }}{% endfor %}</div>
+        </div>
+
+        <div class="arch-form-field">
+            <p class="arch-form-label">{{ form.description.label_tag }}</p>
+            <p class="arch-form-input-p">{{ form.description }}</p>
+            <div class="arch-form-help-text">{{ form.description.help_text }}</div>
+            <div class="arch-form-field-error">{% for error in form.errors.description %} {{ error }}{% endfor %}</div>
+        </div>
+
+        <p class="mb-4">
+            <input type="submit"
+                   name="submit"
+                   value="Create Organization"
+                   class="arch-form-btn arch-form-btn-primary w-full"/>
+        </p>
+    </form>
+
+{% endblock content %}
