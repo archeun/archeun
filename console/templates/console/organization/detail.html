@@ -1,0 +1,10 @@
+{% extends 'console/base.html' %}
+
+{% block content %}
+    Details of the Organization
+    {{ organization.name }}
+    {{ organization.description }}
+
+    <a href="{% url 'arch-console-org-list' %}">Go back to organization list</a>
+
+{% endblock content %}
