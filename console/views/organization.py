@@ -1,24 +1,17 @@
 """console.views.organizations"""
-from django.shortcuts import render
-from django.views import View
+from django.views.generic import ListView
 
+from console.models import Organization
 from console.services.organization import get_user_organizations
 
 
-class OrganizationsView(View):
+class OrganizationsView(ListView):
     """
     Organizations view
     """
+    model = Organization
+    template_name = 'console/organization/organizations.html'
+    context_object_name='organizations'
 
-    def get(self, request):
-        """
-        Render the organizations.html
-        This view will render the CRUD panel for the Organization entity
-        inside a single page
-        """
-        organizations = get_user_organizations(request.user.id)
-        return render(
-            request,
-            'console/organization/organizations.html',
-            context={'organizations': organizations}
-        )
+    def get_queryset(self):
+        return get_user_organizations(self.request.user.id)
