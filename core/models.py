@@ -4,11 +4,11 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class UserProfile(models.Model):
+class Employee(models.Model):
     """
-    User profile model by extending the User model
+    Employee model by extending the User model
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'arch_core_user_profile'
+        db_table = 'arch_core_employee'
