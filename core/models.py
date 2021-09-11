@@ -10,5 +10,12 @@ class Employee(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return "{firstname} {lastname} ({email})".format(
+            firstname=self.user.first_name,
+            lastname=self.user.last_name,
+            email=self.user.email
+        )
+
     class Meta:
         db_table = 'arch_core_employee'
