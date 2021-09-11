@@ -1,17 +1,19 @@
 """console.urls"""
 from django.urls import path
-from console import views as arch_console_views
+
+from console.views.dashboard import DashboardView
+from console.views.organization import OrganizationsView
 
 urlpatterns = [
 
     path(
         '',
-        arch_console_views.DashboardView.as_view(), name='arch-console-dashboard'
+        DashboardView.as_view(), name='arch-console-dashboard'
     ),
 
     path(
         'o/',
-        arch_console_views.OrganizationsView.as_view(), name='arch-console-orgs'
+        OrganizationsView.as_view(), name='arch-console-orgs'
     ),
 
 ]
