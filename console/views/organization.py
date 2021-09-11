@@ -14,4 +14,4 @@ class OrganizationsView(View):
         This view will render the CRUD panel for the Organization entity
         inside a single page
         """
-        return render(request, 'console/organizations.html')
+        return render(request, 'console/organization/organizations.html')
