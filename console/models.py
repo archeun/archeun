@@ -21,6 +21,9 @@ class Organization(models.Model):
         related_name='org_members'
     )
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         db_table = 'arch_console_organization'
 
@@ -34,6 +37,9 @@ class Team(models.Model):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     owners = models.ManyToManyField(Employee, through='TeamOwner', related_name='team_owners')
     members = models.ManyToManyField(Employee, through='TeamMember', related_name='team_members')
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         db_table = 'arch_console_team'
