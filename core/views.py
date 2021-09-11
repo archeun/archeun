@@ -1,4 +1,7 @@
 """core.views module"""
+# pylint: disable=no-self-use
+# pylint: disable=imported-auth-user
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -6,6 +9,7 @@ from django.conf import settings
 from django.views.generic.edit import FormView
 from django.contrib.auth import views as auth_views
 from core.forms import CreateAccountForm
+from core.models import UserProfile
 
 
 class BaseUserView(LoginRequiredMixin, View):
@@ -53,8 +57,17 @@ class CreateAccountView(FormView):
         """
         This function is called if the user creation form is valid
         """
-        form.save()
+        user = form.save()
+        self.create_profile(user)
         return super().form_valid(form)
+
+    def create_profile(self, user: User):
+        """
+        Create a UserProfile for the given user
+        """
+        user_profile = UserProfile()
+        user_profile.user = user
+        user_profile.save()
 
 
 class CreateAccountSuccessView(View):
