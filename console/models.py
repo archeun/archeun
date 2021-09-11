@@ -21,6 +21,9 @@ class Organization(models.Model):
         related_name='org_members'
     )
 
+    class Meta:
+        db_table = 'arch_console_organization'
+
 
 class Team(models.Model):
     """
@@ -32,6 +35,9 @@ class Team(models.Model):
     owners = models.ManyToManyField(Employee, through='TeamOwner', related_name='team_owners')
     members = models.ManyToManyField(Employee, through='TeamMember', related_name='team_members')
 
+    class Meta:
+        db_table = 'arch_console_team'
+
 
 class OrganizationOwner(models.Model):
     """
@@ -41,6 +47,9 @@ class OrganizationOwner(models.Model):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     date_invited = models.DateField(auto_now_add=True)
     date_joined = models.DateField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'arch_console_organization_owner'
 
 
 class OrganizationMember(models.Model):
@@ -52,6 +61,9 @@ class OrganizationMember(models.Model):
     date_invited = models.DateField(auto_now_add=True)
     date_joined = models.DateField(blank=True, null=True)
 
+    class Meta:
+        db_table = 'arch_console_organization_member'
+
 
 class TeamOwner(models.Model):
     """
@@ -61,6 +73,9 @@ class TeamOwner(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     date_added = models.DateField(auto_now_add=True)
 
+    class Meta:
+        db_table = 'arch_console_team_owner'
+
 
 class TeamMember(models.Model):
     """
@@ -69,3 +84,6 @@ class TeamMember(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     date_added = models.DateField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'arch_console_team_member'
