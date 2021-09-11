@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'oidc_provider',
     'core',
+    'console',
 ]
 
 MIDDLEWARE = [
