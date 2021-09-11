@@ -1,5 +1,9 @@
 # archeun
 
+![Django](https://github.com/archeun/archeun/actions/workflows/django.yml/badge.svg)
+
+![Pylint](https://github.com/archeun/archeun/actions/workflows/pylint.yml/badge.svg)
+
 ![alt text](https://github.com/archeun/archeun/blob/main/blob/archeun-logo.svg?raw=true)
 
 This repository contains the code of the core archeun platform, which includes,
