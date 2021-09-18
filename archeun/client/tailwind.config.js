@@ -1,7 +1,13 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
     purge: [],
     darkMode: false,
     theme: {
+        screens: {
+            'xs': '460px',
+            ...defaultTheme.screens,
+        },
         extend: {
             colors: {
                 archTeal: '#17B890',

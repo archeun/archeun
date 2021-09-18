@@ -1,0 +1,12 @@
+.arch-console-header {
+    @apply flex bg-archTealDark mb-5;
+    height: 54px;
+}
+
+.arch-console-left-menu-item {
+    @apply border-b p-2
+}
+
+.arch-console-left-menu-item > a {
+    text-decoration: none;
+}
