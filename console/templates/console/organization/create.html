@@ -1,7 +1,10 @@
-{% extends 'console/base.html' %}
+{% extends 'console/organization/base.html' %}
 
-{% block content %}
-    Add an organization
+{% block org-heading %}
+    <i class="fas fa-edit mr-1.5"></i>Create Organization
+{% endblock org-heading %}
+
+{% block org-content %}
 
     <form method="post">
         {% csrf_token %}
@@ -20,12 +23,14 @@
             <div class="arch-form-field-error">{% for error in form.errors.description %} {{ error }}{% endfor %}</div>
         </div>
 
-        <p class="mb-4">
-            <input type="submit"
-                   name="submit"
-                   value="Create Organization"
-                   class="arch-form-btn arch-form-btn-primary w-full"/>
+        <p class="mb-4 flex justify-between">
+            <a href="{% url 'arch-console-org-list' %}">
+                <i class="fas fa-arrow-left mr-1.5"></i>Go back to organization list
+            </a>
+            <button type="submit" class="arch-form-btn arch-form-btn-primary">
+                <i class="fas fa-save mr-1.5"></i>Create
+            </button>
         </p>
     </form>
 
-{% endblock content %}
+{% endblock org-content %}

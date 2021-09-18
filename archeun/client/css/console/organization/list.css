@@ -1,0 +1,5 @@
+.arch-console-org-list-description {
+    min-height: 135px;
+    max-height: 135px;
+    overflow-y: scroll;
+}

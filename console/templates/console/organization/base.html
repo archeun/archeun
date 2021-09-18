@@ -1,0 +1,16 @@
+{% extends 'console/base.html' %}
+
+{% block content %}
+    <div class="flex justify-between font-bold border-b pb-2 text-lg border-archTealDark text-archTealDark">
+        <div>
+            {% block org-heading %}{% endblock org-heading %}
+        </div>
+        <div>
+            {% block org-heading-actions %}{% endblock org-heading-actions %}
+        </div>
+    </div>
+
+    <div class="mt-4">
+        {% block org-content %}{% endblock org-content %}
+    </div>
+{% endblock content %}

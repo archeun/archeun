@@ -2,7 +2,7 @@
     @apply font-bold text-archTealDark;
 }
 
-.arch-form-input-p > input {
+.arch-form-input-p > input, .arch-form-input-p > textarea {
     @apply w-full rounded border border-archTealDark p-1;
 }
 
@@ -19,11 +19,15 @@
 }
 
 .arch-form-btn {
-    @apply p-2 rounded font-bold
+    @apply p-2 rounded font-bold cursor-pointer hover:opacity-90 text-sm
 }
 
 .arch-form-btn-primary {
     @apply bg-archTeal text-white
+}
+
+.arch-form-btn-danger {
+    @apply bg-archRed text-white
 }
 
 .arch-form-field-error {

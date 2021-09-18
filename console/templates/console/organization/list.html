@@ -1,17 +1,43 @@
-{% extends 'console/base.html' %}
+{% extends 'console/organization/base.html' %}
 
-{% block content %}
-    Organizations
+{% block org-heading %}
+    <i class="fas fa-building mr-0.5"></i> Organizations
+{% endblock org-heading %}
 
-    <ul>
+{% block org-heading-actions %}
+    <a class="arch-link-button arch-link-button-primary"
+       href="{% url 'arch-console-org-create' %}">
+        <i class="fas fa-plus mr-0.5"></i> <span class="hidden xs:inline">Create</span>
+    </a>
+{% endblock org-heading-actions %}
+
+{% block org-content %}
+
+
+    <ul class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3">
         {% for organization in organizations %}
-            <li>
-                <a href="{% url 'arch-console-org-update' pk=organization.id %}">{{ organization }}</a>
-                <a href="{% url 'arch-console-org-delete' pk=organization.id %}">X</a>
+            <li class="xs:mr-2 sm:mr-5 mt-3">
+                <div class="rounded shadow">
+                    <div class="font-bold border-b p-2 mb-2 text-archYellow bg-archTeal rounded-tl rounded-tr">
+                        {{ organization }}
+                    </div>
+                    <div class="font-light text-sm p-2 arch-console-org-list-description">
+                        {{ organization.description | truncatechars:250 }}
+                    </div>
+                    <div class="flex mt-2 justify-between bg-gray-100 p-2 text-xs">
+                        <a class="pr-1" href="{% url 'arch-console-org-detail' pk=organization.id %}">
+                            <i class="fas fa-eye mr-1"></i>Details
+                        </a>
+                        <a class="pr-1" href="{% url 'arch-console-org-update' pk=organization.id %}">
+                            <i class="fas fa-edit mr-0.5"></i>Edit
+                        </a>
+                        <a class="pr-1 text-archRed" href="{% url 'arch-console-org-delete' pk=organization.id %}">
+                            <i class="fas fa-trash mr-0.5"></i>Delete
+                        </a>
+                    </div>
+                </div>
             </li>
         {% endfor %}
     </ul>
 
-    <a href="{% url 'arch-console-org-create' %}">Create Organization</a>
-
-{% endblock content %}
+{% endblock org-content %}

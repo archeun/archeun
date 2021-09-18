@@ -1,20 +1,25 @@
-{% extends 'console/base.html' %}
+{% extends 'console/organization/base.html' %}
 
-{% block content %}
-    Delete an organization
+{% block org-heading %}
+    <i class="fas fa-trash mr-1.5"></i>Delete {{ organization.name }}
+{% endblock org-heading %}
+
+{% block org-content %}
+
 
     <form method="post">
         {% csrf_token %}
 
-        <p>Do you really want to delete '{{ organization }}'</p>
+        <p>Do you really want to delete '{{ organization }}'?</p>
 
-        <p class="mb-4">
-            <input type="submit"
-                   name="submit"
-                   value="Yes, Delete"
-                   class="arch-form-btn arch-form-btn-primary w-full"/>
+        <p class="mb-4 flex justify-between mt-5">
+            <a href="{% url 'arch-console-org-list' %}">
+                <i class="fas fa-arrow-left mr-1.5"></i>Go back to organization list
+            </a>
+            <button type="submit" class="arch-form-btn arch-form-btn-danger">
+                <i class="fas fa-trash mr-1.5"></i>Yes, Delete
+            </button>
         </p>
-        <a href="{% url 'arch-console-org-list' %}">Go back to organization list</a>
     </form>
 
-{% endblock content %}
+{% endblock org-content %}

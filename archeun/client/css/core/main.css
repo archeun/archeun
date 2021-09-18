@@ -17,3 +17,11 @@ a {
 .arch-error-message {
     @apply bg-archRed;
 }
+
+.arch-link-button {
+    @apply no-underline font-bold text-xs p-2 rounded;
+}
+
+.arch-link-button-primary {
+    @apply bg-archTeal text-archYellow;
+}

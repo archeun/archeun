@@ -7,14 +7,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>archeun - console</title>
+    <script src="https://kit.fontawesome.com/38f3a1850b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'core/css/tailwind-build.css' %}">
     {% block additional_css %}
     {% endblock additional_css %}
 </head>
 
-<body class="bg-gray-100">
-{% block content %}
-{% endblock content %}
+<body class="bg-white">
+<header class="arch-console-header">
+    <div class="lg:grid lg:grid-cols-12">
+        <img src="{% static 'core/img/archeun-text-logo.svg' %}" alt="archeun logo" class="h-full lg:h-auto lg:col-span-2 lg:pl-10 lg:pt-1.5">
+    </div>
+</header>
+<div class="sm:container mx-auto">
+    <div class="grid grid-cols-12 gap-2">
+        <nav class="hidden xs:block sm:col-span-1 lg:col-span-2 border-r-2">
+            <ul class="">
+                <li class="arch-console-left-menu-item">
+                    <a href="{% url 'arch-console-dashboard' %}">
+                        <i class="fas fa-chart-line mr-1.5"></i>
+                        <div class="hidden lg:inline">Dashboard</div>
+                    </a>
+                </li>
+                <li class="arch-console-left-menu-item">
+                    <a href="{% url 'arch-console-org-list' %}">
+                        <i class="fas fa-building mr-1.5"></i>
+                        <div class="hidden lg:inline">Organizations</div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <section class="col-span-12 xs:col-span-10 min-h-screen">
+            {% block content %}
+            {% endblock content %}
+        </section>
+    </div>
+
+</div>
 </body>
 
 </html>

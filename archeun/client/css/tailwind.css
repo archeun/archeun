@@ -1,5 +1,7 @@
 @import "tailwindcss/base";
 @import "./core/main.css";
+@import "./console/main.css";
+@import "./console/organization/list.css";
 
 @import "tailwindcss/components";
 @import "./components/form.css";
