@@ -1,0 +1,20 @@
+{% load get_item %}
+<table class="w-full border">
+    <thead class="bg-archTeal text-white">
+    <tr>
+        {% for header in headers %}
+            <th class="text-left border p-2">{{ header }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for item in items %}
+        <tr>
+            {% for header in headers %}
+                <td class="border p-2 text-sm">{{ item|get_item:header }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
