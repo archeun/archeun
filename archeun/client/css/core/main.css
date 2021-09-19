@@ -1,3 +1,7 @@
+html {
+    font-size: 14px;
+}
+
 a {
     @apply text-archTealDark underline font-bold cursor-pointer
 }
@@ -19,7 +23,7 @@ a {
 }
 
 .arch-link-button {
-    @apply no-underline font-bold text-xs p-2 rounded;
+    @apply no-underline font-bold text-sm p-2 rounded;
 }
 
 .arch-link-button-primary {
