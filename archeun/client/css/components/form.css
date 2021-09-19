@@ -19,7 +19,7 @@
 }
 
 .arch-form-btn {
-    @apply p-2 rounded font-bold cursor-pointer hover:opacity-90 text-sm
+    @apply p-2 rounded font-bold cursor-pointer hover:opacity-90
 }
 
 .arch-form-btn-primary {
