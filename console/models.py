@@ -5,6 +5,11 @@ from django.urls import reverse
 
 from core.models import Employee
 
+MEMBER_STATUS_CHOICES = [
+    ('ACTIVE', 'Active'),
+    ('INACTIVE', 'Inactive'),
+]
+
 
 class Organization(models.Model):
     """
@@ -61,51 +66,63 @@ class Team(models.Model):
         db_table = 'arch_console_team'
 
 
-class OrganizationOwner(models.Model):
+class InvitedMember(models.Model):
+    """
+    Abstract model class to enable invited members
+    """
+    date_invited = models.DateField(auto_now_add=True)
+    date_joined = models.DateField(blank=True, null=True)
+    invite_code = models.CharField(blank=True, null=True, max_length=256)
+    invite_accepted = models.BooleanField(default=False)
+    status = models.CharField(
+        max_length=20,
+        choices=MEMBER_STATUS_CHOICES,
+        default='INACTIVE',
+    )
+
+    class Meta:
+        abstract = True
+
+
+class OrganizationOwner(InvitedMember):
     """
     Organization Owner model: Many-To-Many intermediate table for Organization.owners
     """
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    date_invited = models.DateField(auto_now_add=True)
-    date_joined = models.DateField(blank=True, null=True)
 
     class Meta:
         db_table = 'arch_console_organization_owner'
 
 
-class OrganizationMember(models.Model):
+class OrganizationMember(InvitedMember):
     """
     Organization Member model: Many-To-Many intermediate table for Organization.members
     """
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    date_invited = models.DateField(auto_now_add=True)
-    date_joined = models.DateField(blank=True, null=True)
 
     class Meta:
         db_table = 'arch_console_organization_member'
 
 
-class TeamOwner(models.Model):
+class TeamOwner(InvitedMember):
     """
     Team Owner model: Many-To-Many intermediate table for Team.owners
     """
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    date_added = models.DateField(auto_now_add=True)
 
     class Meta:
         db_table = 'arch_console_team_owner'
 
 
-class TeamMember(models.Model):
+class TeamMember(InvitedMember):
     """
     Team Member model: Many-To-Many intermediate table for Team.members
     """
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    date_added = models.DateField(auto_now_add=True)
 
     class Meta:
         db_table = 'arch_console_team_member'
