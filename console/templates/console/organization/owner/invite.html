@@ -1,0 +1,29 @@
+{% extends 'console/organization/base.html' %}
+
+{% block org-heading %}
+    <i class="fas fa-users-cog mr-1.5"></i>Add Owner to {{ organization.name  | truncatechars:100 }}
+{% endblock org-heading %}
+
+{% block org-content %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="arch-form-field">
+            <p class="arch-form-label">{{ form.emails.label_tag }}</p>
+            <p class="arch-form-input-p">{{ form.emails }}</p>
+            <div class="arch-form-help-text">{{ form.emails.help_text }}</div>
+            <div class="arch-form-field-error">{% for error in form.errors.emails %} {{ error }}{% endfor %}</div>
+        </div>
+
+        <p class="mb-4 flex justify-between">
+            <a href="{% url 'arch-console-org-detail' organization.id %}">
+                <i class="fas fa-arrow-left mr-1.5"></i>Go back to {{ organization.name | truncatechars:100 }}
+            </a>
+            <button type="submit" class="arch-form-btn arch-form-btn-primary">
+                <i class="fas fa-save mr-1.5"></i>Invite Owners
+            </button>
+        </p>
+    </form>
+
+{% endblock org-content %}

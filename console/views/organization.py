@@ -1,9 +1,13 @@
 """console.views.organizations"""
-from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, FormView
 
+from console.forms import MultiEmailInviteForm
 from console.models import Organization
-from console.services.organization import get_user_organizations, add_organization_owner
+from console.services.organization import get_user_organizations, \
+    add_organization_owner, \
+    invite_organization_owners
 from core.mixins import ArchItemListViewMixin
 
 
@@ -113,3 +117,49 @@ class OrganizationDeleteView(DeleteView):
     context_object_name = 'organization'
     template_name = 'console/organization/delete.html'
     success_url = reverse_lazy('arch-console-org-list')
+
+
+class OrganizationInviteOwnersView(FormView):
+    """
+    Form view to invite owners to the organization by emails
+    """
+    template_name = 'console/organization/owner/invite.html'
+    form_class = MultiEmailInviteForm
+    success_url = reverse_lazy('arch-console-org-list')
+    organization = None
+
+    def get_context_data(self, **kwargs):
+        """Insert the form into the context dict."""
+        if 'organization' not in kwargs:
+            kwargs['organization'] = self.organization
+        return super().get_context_data(**kwargs)
+
+    def get(self, request, *args, **kwargs):
+        """
+        Initialize the organization object for GET
+        @param request:
+        @param args:
+        @param kwargs:
+        @return:
+        """
+        self.organization = get_object_or_404(Organization, pk=kwargs['pk'])
+        return super().get(request, args, kwargs)
+
+    def post(self, request, *args, **kwargs):
+        """
+        Initialize the organization object for POST
+        @param request:
+        @param args:
+        @param kwargs:
+        @return:
+        """
+        self.organization = get_object_or_404(Organization, pk=kwargs['pk'])
+        return super().post(request, args, kwargs)
+
+    def form_valid(self, form):
+        """If the form is valid, send out emails"""
+        invite_organization_owners(self.organization, form.get_email_list())
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("arch-console-org-detail", kwargs={'pk': 1})

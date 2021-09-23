@@ -11,11 +11,11 @@
 }
 
 .arch-form-help-text {
-    @apply text-xs mt-1 text-archGray;
+    @apply text-sm mt-1 text-archGray;
 }
 
 .arch-form-help-text > ul > li {
-    @apply text-xs mt-1 text-archGray;
+    @apply text-sm mt-1 text-archGray;
 }
 
 .arch-form-btn {
@@ -31,5 +31,5 @@
 }
 
 .arch-form-field-error {
-    @apply text-archRed text-xs;
+    @apply text-archRed text-sm;
 }

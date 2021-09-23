@@ -42,3 +42,14 @@ def add_organization_owner(organization: Organization, user: User) -> Organizati
     owner.save()
     organization.organizationowner_set.add(owner)
     return organization
+
+
+def invite_organization_owners(organization, emails):
+    """
+    Service entry point to invite organization owners
+    @param organization: The organization object
+    @param emails: The list of emails to be invited as owners
+    @return:
+    """
+    # aruna@asda.com ,asda@amms.com , asdhsdsasdas@as.com, qwey@asda.com,ette@shsh.com
+    print(emails, organization)
