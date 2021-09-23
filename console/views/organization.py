@@ -123,7 +123,7 @@ class OrganizationInviteOwnersView(FormView):
     """
     Form view to invite owners to the organization by emails
     """
-    template_name = 'console/organization/owner/invite.html'
+    template_name = 'console/organization/invite.html'
     form_class = MultiEmailInviteForm
     success_url = reverse_lazy('arch-console-org-list')
     organization = None
