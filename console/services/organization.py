@@ -5,7 +5,7 @@ Service layer to handle business logic related to Organizations
 from django.contrib.auth.models import User
 from django.db.models import QuerySet
 
-from console.models import Organization, OrganizationOwner
+from console.models import Organization, OrganizationOwner, OrganizationInvite
 
 
 def get_user_organizations(user_id: int) -> QuerySet:
@@ -47,9 +47,41 @@ def add_organization_owner(organization: Organization, user: User) -> Organizati
 def invite_organization_owners(organization, emails):
     """
     Service entry point to invite organization owners
-    @param organization: The organization object
+    @param Organization organization: The organization object
     @param emails: The list of emails to be invited as owners
     @return:
     """
-    # aruna@asda.com ,asda@amms.com , asdhsdsasdas@as.com, qwey@asda.com,ette@shsh.com
-    print(emails, organization)
+    create_organization_invites(organization, emails, OrganizationInvite.ORG_INVITE_TYPE_OWNER)
+
+
+def create_organization_invites(organization, emails, invite_type):
+    """
+    Creates OrganizationInvites with the given emails for the given organization and type
+    @param Organization organization: The organization object
+    @param emails: The list of emails to be invited
+    @param invite_type: Type of invite
+    @return:
+    """
+    invited_emails = get_organization_invite_emails(organization)
+    for email in emails:
+        if email not in invited_emails:
+            organization_invite = OrganizationInvite()
+            organization_invite.organization_id = organization.id
+            organization_invite.email = email
+            organization_invite.invite_type = invite_type
+            organization_invite.status = OrganizationInvite.ORG_INVITE_STATUS_PENDING
+            organization_invite.save()
+
+
+def get_organization_invite_emails(organization):
+    """
+    Returns the organization invited emails for the given organization
+    @param Organization organization:
+    @return: []
+    """
+    return list(
+        organization.organizationinvite_set.values_list(
+            'email',
+            flat=True
+        )
+    )
