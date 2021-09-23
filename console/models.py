@@ -5,6 +5,11 @@ from django.urls import reverse
 
 from core.models import Employee
 
+MEMBER_STATUS_CHOICES = [
+    ('ACTIVE', 'Active'),
+    ('INACTIVE', 'Inactive'),
+]
+
 
 class Organization(models.Model):
     """
@@ -61,51 +66,101 @@ class Team(models.Model):
         db_table = 'arch_console_team'
 
 
-class OrganizationOwner(models.Model):
+class JoinedMember(models.Model):
+    """
+    Abstract model class to enable joined member attributes
+    """
+    date_joined = models.DateField(blank=True, null=True)
+    status = models.CharField(
+        max_length=20,
+        choices=MEMBER_STATUS_CHOICES,
+        default='INACTIVE',
+    )
+
+    class Meta:
+        abstract = True
+
+
+class OrganizationOwner(JoinedMember):
     """
     Organization Owner model: Many-To-Many intermediate table for Organization.owners
     """
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    date_invited = models.DateField(auto_now_add=True)
-    date_joined = models.DateField(blank=True, null=True)
 
     class Meta:
         db_table = 'arch_console_organization_owner'
 
 
-class OrganizationMember(models.Model):
+class OrganizationMember(JoinedMember):
     """
     Organization Member model: Many-To-Many intermediate table for Organization.members
     """
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    date_invited = models.DateField(auto_now_add=True)
-    date_joined = models.DateField(blank=True, null=True)
 
     class Meta:
         db_table = 'arch_console_organization_member'
 
 
-class TeamOwner(models.Model):
+class TeamOwner(JoinedMember):
     """
     Team Owner model: Many-To-Many intermediate table for Team.owners
     """
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    date_added = models.DateField(auto_now_add=True)
 
     class Meta:
         db_table = 'arch_console_team_owner'
 
 
-class TeamMember(models.Model):
+class TeamMember(JoinedMember):
     """
     Team Member model: Many-To-Many intermediate table for Team.members
     """
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    date_added = models.DateField(auto_now_add=True)
 
     class Meta:
         db_table = 'arch_console_team_member'
+
+
+class OrganizationInvite(models.Model):
+    """
+    Organization Invite model: Model to store all invites for organizations
+    """
+
+    ORG_INVITE_TYPE_OWNER = 'ORG_OWNER'
+    ORG_INVITE_TYPE_MEMBER = 'ORG_MEMBER'
+
+    ORG_INVITE_STATUS_PENDING = 'PENDING'
+    ORG_INVITE_STATUS_ACCEPTED = 'ACCEPTED'
+    ORG_INVITE_STATUS_REJECTED = 'REJECTED'
+
+    ORG_INVITE_TYPE_CHOICES = [
+        (ORG_INVITE_TYPE_OWNER, 'Organization Owner'),
+        (ORG_INVITE_TYPE_MEMBER, 'Organization Member'),
+    ]
+
+    ORG_INVITE_STATUS_CHOICES = [
+        (ORG_INVITE_STATUS_PENDING, 'Pending'),
+        (ORG_INVITE_STATUS_ACCEPTED, 'Accepted'),
+        (ORG_INVITE_STATUS_REJECTED, 'Rejected'),
+    ]
+
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
+    email = models.EmailField()
+    invite_type = models.CharField(
+        max_length=20,
+        choices=ORG_INVITE_TYPE_CHOICES,
+    )
+    invited_date_time = models.DateTimeField(auto_now_add=True)
+    invite_accepted_date_time = models.DateTimeField(null=True, blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=ORG_INVITE_STATUS_CHOICES,
+        default='PENDING',
+    )
+
+    class Meta:
+        db_table = 'arch_console_organization_invite'

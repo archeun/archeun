@@ -3,7 +3,8 @@ from django.urls import path
 
 from console.views.dashboard import DashboardView
 from console.views.organization import OrganizationsView, OrganizationCreateView, \
-    OrganizationDetailView, OrganizationUpdateView, OrganizationDeleteView
+    OrganizationDetailView, OrganizationUpdateView, OrganizationDeleteView, \
+    OrganizationInviteOwnersView, OrganizationInviteMembersView
 
 urlpatterns = [
 
@@ -35,6 +36,16 @@ urlpatterns = [
     path(
         'o/delete/<int:pk>/',
         OrganizationDeleteView.as_view(), name='arch-console-org-delete'
+    ),
+
+    path(
+        'o/invite-owners/<int:pk>/',
+        OrganizationInviteOwnersView.as_view(), name='arch-console-org-invite-owners'
+    ),
+
+    path(
+        'o/invite-members/<int:pk>/',
+        OrganizationInviteMembersView.as_view(), name='arch-console-org-invite-members'
     ),
 
 ]
