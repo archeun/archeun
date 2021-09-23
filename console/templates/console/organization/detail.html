@@ -28,6 +28,15 @@
         <div class="mt-5 mb-5">
             {% item_list 'owners' %}
         </div>
+
+        <div class="text-archGray font-bold">
+            <i class="fas fa-clock mr-0.5"></i>
+            {{ 'Pending Owner Invites' }}
+        </div>
+
+        <div class="mt-5 mb-5">
+            {% item_list 'owner_invites' %}
+        </div>
     </div>
 
     <div class="mb-5">
@@ -43,6 +52,15 @@
 
         <div class="mt-5 mb-5">
             {% item_list 'members' %}
+        </div>
+
+        <div class="text-archGray font-bold">
+            <i class="fas fa-clock mr-0.5"></i>
+            {{ 'Pending Member Invites' }}
+        </div>
+
+        <div class="mt-5 mb-5">
+            {% item_list 'member_invites' %}
         </div>
     </div>
 

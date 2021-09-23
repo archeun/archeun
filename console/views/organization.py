@@ -4,10 +4,12 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, FormView
 
 from console.forms import MultiEmailInviteForm
-from console.models import Organization
+from console.models import Organization, OrganizationInvite
 from console.services.organization import get_user_organizations, \
     add_organization_owner, \
     invite_organization_owners
+from console.view_utils.organization import get_organization_owners_for_list, \
+    get_organization_members_for_list, get_organization_invites_by_type_for_list
 from core.mixins import ArchItemListViewMixin
 
 
@@ -55,6 +57,16 @@ class OrganizationDetailView(ArchItemListViewMixin, DetailView):
             'Email',
             'Date Joined',
         ],
+        'owner_invites': [
+            'Email',
+            'Invited Date/time',
+            'Status',
+        ],
+        'member_invites': [
+            'Email',
+            'Invited Date/time',
+            'Status',
+        ],
     }
 
     def get_context_data(self, **kwargs):
@@ -73,27 +85,19 @@ class OrganizationDetailView(ArchItemListViewMixin, DetailView):
         Returns the items for the list as an array
         @return:
         """
-        items = {'owners': [], 'members': []}
         organization = self.get_object()
-        for owner in organization.organizationowner_set.all():
-            items['owners'].append({
-                'Name': '{first} {last}'.format(
-                    first=owner.employee.user.first_name,
-                    last=owner.employee.user.last_name
-                ),
-                'Email': owner.employee.user.email,
-                'Date Joined': owner.date_joined,
-            })
-        for member in organization.organizationmember_set.all():
-            items['members'].append({
-                'Name': '{first} {last}'.format(
-                    first=member.employee.user.first_name,
-                    last=member.employee.user.last_name
-                ),
-                'Email': member.employee.user.email,
-                'Date Joined': member.date_joined,
-            })
-        return items
+        return {
+            'owners': get_organization_owners_for_list(organization),
+            'members': get_organization_members_for_list(organization),
+            'owner_invites': get_organization_invites_by_type_for_list(
+                organization,
+                OrganizationInvite.ORG_INVITE_TYPE_OWNER
+            ),
+            'member_invites': get_organization_invites_by_type_for_list(
+                organization,
+                OrganizationInvite.ORG_INVITE_TYPE_MEMBER
+            ),
+        }
 
 
 class OrganizationUpdateView(UpdateView):
