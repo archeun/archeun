@@ -10,17 +10,6 @@ MEMBER_STATUS_CHOICES = [
     ('INACTIVE', 'Inactive'),
 ]
 
-INVITE_TYPE_CHOICES = [
-    ('ORG_OWNER', 'Organization Owner'),
-    ('ORG_MEMBER', 'Organization Member'),
-]
-
-INVITE_STATUS_CHOICES = [
-    ('PENDING', 'Pending'),
-    ('ACCEPTED', 'Accepted'),
-    ('REJECTED', 'Rejected'),
-]
-
 
 class Organization(models.Model):
     """
@@ -141,17 +130,35 @@ class OrganizationInvite(models.Model):
     Organization Invite model: Model to store all invites for organizations
     """
 
+    ORG_INVITE_TYPE_OWNER = 'ORG_OWNER'
+    ORG_INVITE_TYPE_MEMBER = 'ORG_MEMBER'
+
+    ORG_INVITE_STATUS_PENDING = 'PENDING'
+    ORG_INVITE_STATUS_ACCEPTED = 'ACCEPTED'
+    ORG_INVITE_STATUS_REJECTED = 'REJECTED'
+
+    ORG_INVITE_TYPE_CHOICES = [
+        (ORG_INVITE_TYPE_OWNER, 'Organization Owner'),
+        (ORG_INVITE_TYPE_MEMBER, 'Organization Member'),
+    ]
+
+    ORG_INVITE_STATUS_CHOICES = [
+        (ORG_INVITE_STATUS_PENDING, 'Pending'),
+        (ORG_INVITE_STATUS_ACCEPTED, 'Accepted'),
+        (ORG_INVITE_STATUS_REJECTED, 'Rejected'),
+    ]
+
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     email = models.EmailField()
     invite_type = models.CharField(
         max_length=20,
-        choices=INVITE_TYPE_CHOICES,
+        choices=ORG_INVITE_TYPE_CHOICES,
     )
-    invited_date = models.DateTimeField()
-    invite_accepted_date = models.DateTimeField()
+    invited_date_time = models.DateTimeField(auto_now_add=True)
+    invite_accepted_date_time = models.DateTimeField(null=True, blank=True)
     status = models.CharField(
         max_length=20,
-        choices=INVITE_STATUS_CHOICES,
+        choices=ORG_INVITE_STATUS_CHOICES,
         default='PENDING',
     )
 
