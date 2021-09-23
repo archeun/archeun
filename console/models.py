@@ -10,6 +10,17 @@ MEMBER_STATUS_CHOICES = [
     ('INACTIVE', 'Inactive'),
 ]
 
+INVITE_TYPE_CHOICES = [
+    ('ORG_OWNER', 'Organization Owner'),
+    ('ORG_MEMBER', 'Organization Member'),
+]
+
+INVITE_STATUS_CHOICES = [
+    ('PENDING', 'Pending'),
+    ('ACCEPTED', 'Accepted'),
+    ('REJECTED', 'Rejected'),
+]
+
 
 class Organization(models.Model):
     """
@@ -66,14 +77,11 @@ class Team(models.Model):
         db_table = 'arch_console_team'
 
 
-class InvitedMember(models.Model):
+class JoinedMember(models.Model):
     """
-    Abstract model class to enable invited members
+    Abstract model class to enable joined member attributes
     """
-    date_invited = models.DateField(auto_now_add=True)
     date_joined = models.DateField(blank=True, null=True)
-    invite_code = models.CharField(blank=True, null=True, max_length=256)
-    invite_accepted = models.BooleanField(default=False)
     status = models.CharField(
         max_length=20,
         choices=MEMBER_STATUS_CHOICES,
@@ -84,7 +92,7 @@ class InvitedMember(models.Model):
         abstract = True
 
 
-class OrganizationOwner(InvitedMember):
+class OrganizationOwner(JoinedMember):
     """
     Organization Owner model: Many-To-Many intermediate table for Organization.owners
     """
@@ -95,7 +103,7 @@ class OrganizationOwner(InvitedMember):
         db_table = 'arch_console_organization_owner'
 
 
-class OrganizationMember(InvitedMember):
+class OrganizationMember(JoinedMember):
     """
     Organization Member model: Many-To-Many intermediate table for Organization.members
     """
@@ -106,7 +114,7 @@ class OrganizationMember(InvitedMember):
         db_table = 'arch_console_organization_member'
 
 
-class TeamOwner(InvitedMember):
+class TeamOwner(JoinedMember):
     """
     Team Owner model: Many-To-Many intermediate table for Team.owners
     """
@@ -117,7 +125,7 @@ class TeamOwner(InvitedMember):
         db_table = 'arch_console_team_owner'
 
 
-class TeamMember(InvitedMember):
+class TeamMember(JoinedMember):
     """
     Team Member model: Many-To-Many intermediate table for Team.members
     """
@@ -126,3 +134,25 @@ class TeamMember(InvitedMember):
 
     class Meta:
         db_table = 'arch_console_team_member'
+
+
+class EmailInvite(models.Model):
+    """
+    Email Invite model: Model to store all email invites in the system
+    """
+
+    email = models.EmailField()
+    invite_type = models.CharField(
+        max_length=20,
+        choices=INVITE_TYPE_CHOICES,
+    )
+    invited_date = models.DateTimeField()
+    invite_accepted_date = models.DateTimeField()
+    status = models.CharField(
+        max_length=20,
+        choices=INVITE_STATUS_CHOICES,
+        default='PENDING',
+    )
+
+    class Meta:
+        db_table = 'arch_console_email_invite'
