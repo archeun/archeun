@@ -48,13 +48,11 @@ class OrganizationDetailView(ArchItemListViewMixin, DetailView):
         'owners': [
             'Name',
             'Email',
-            'Date Invited',
             'Date Joined',
         ],
         'members': [
             'Name',
             'Email',
-            'Date Invited',
             'Date Joined',
         ],
     }
@@ -84,7 +82,6 @@ class OrganizationDetailView(ArchItemListViewMixin, DetailView):
                     last=owner.employee.user.last_name
                 ),
                 'Email': owner.employee.user.email,
-                'Date Invited': owner.date_invited,
                 'Date Joined': owner.date_joined,
             })
         for member in organization.organizationmember_set.all():
@@ -94,7 +91,6 @@ class OrganizationDetailView(ArchItemListViewMixin, DetailView):
                     last=member.employee.user.last_name
                 ),
                 'Email': member.employee.user.email,
-                'Date Invited': member.date_invited,
                 'Date Joined': member.date_joined,
             })
         return items
