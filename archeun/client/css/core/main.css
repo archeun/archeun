@@ -29,3 +29,7 @@ a {
 .arch-link-button-primary {
     @apply bg-archTeal text-archYellow;
 }
+
+.arch-link-button-primary-dark {
+    @apply bg-archTealDark text-archYellow;
+}
