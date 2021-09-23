@@ -7,7 +7,7 @@ from console.forms import MultiEmailInviteForm
 from console.models import Organization, OrganizationInvite
 from console.services.organization import get_user_organizations, \
     add_organization_owner, \
-    invite_organization_owners
+    invite_organization_owners, invite_organization_members
 from console.view_utils.organization import get_organization_owners_for_list, \
     get_organization_members_for_list, get_organization_invites_by_type_for_list
 from core.mixins import ArchItemListViewMixin
@@ -127,11 +127,12 @@ class OrganizationInviteOwnersView(FormView):
     form_class = MultiEmailInviteForm
     success_url = reverse_lazy('arch-console-org-list')
     organization = None
+    invite_type = 'Owners'
 
     def get_context_data(self, **kwargs):
         """Insert the form into the context dict."""
-        if 'organization' not in kwargs:
-            kwargs['organization'] = self.organization
+        kwargs['invite_type'] = self.invite_type
+        kwargs['organization'] = self.organization
         return super().get_context_data(**kwargs)
 
     def get(self, request, *args, **kwargs):
@@ -163,3 +164,15 @@ class OrganizationInviteOwnersView(FormView):
 
     def get_success_url(self):
         return reverse("arch-console-org-detail", kwargs={'pk': 1})
+
+
+class OrganizationInviteMembersView(OrganizationInviteOwnersView):
+    """
+    Form view to invite members to the organization by emails
+    """
+    invite_type = 'Members'
+
+    def form_valid(self, form):
+        """If the form is valid, send out emails"""
+        invite_organization_members(self.organization, form.get_email_list())
+        return super().form_valid(form)

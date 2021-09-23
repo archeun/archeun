@@ -54,6 +54,16 @@ def invite_organization_owners(organization, emails):
     create_organization_invites(organization, emails, OrganizationInvite.ORG_INVITE_TYPE_OWNER)
 
 
+def invite_organization_members(organization, emails):
+    """
+    Service entry point to invite organization members
+    @param Organization organization: The organization object
+    @param emails: The list of emails to be invited as members
+    @return:
+    """
+    create_organization_invites(organization, emails, OrganizationInvite.ORG_INVITE_TYPE_MEMBER)
+
+
 def create_organization_invites(organization, emails, invite_type):
     """
     Creates OrganizationInvites with the given emails for the given organization and type
@@ -62,7 +72,7 @@ def create_organization_invites(organization, emails, invite_type):
     @param invite_type: Type of invite
     @return:
     """
-    invited_emails = get_organization_invite_emails(organization)
+    invited_emails = get_organization_invite_emails_by_type(organization, invite_type)
     for email in emails:
         if email not in invited_emails:
             organization_invite = OrganizationInvite()
@@ -73,14 +83,15 @@ def create_organization_invites(organization, emails, invite_type):
             organization_invite.save()
 
 
-def get_organization_invite_emails(organization):
+def get_organization_invite_emails_by_type(organization, invite_type):
     """
-    Returns the organization invited emails for the given organization
+    Returns the organization invited emails for the given organization and the type
+    @param invite_type:
     @param Organization organization:
     @return: []
     """
     return list(
-        organization.organizationinvite_set.values_list(
+        organization.organizationinvite_set.filter(invite_type=invite_type).values_list(
             'email',
             flat=True
         )
