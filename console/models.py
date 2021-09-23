@@ -136,11 +136,12 @@ class TeamMember(JoinedMember):
         db_table = 'arch_console_team_member'
 
 
-class EmailInvite(models.Model):
+class OrganizationInvite(models.Model):
     """
-    Email Invite model: Model to store all email invites in the system
+    Organization Invite model: Model to store all invites for organizations
     """
 
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     email = models.EmailField()
     invite_type = models.CharField(
         max_length=20,
@@ -155,4 +156,4 @@ class EmailInvite(models.Model):
     )
 
     class Meta:
-        db_table = 'arch_console_email_invite'
+        db_table = 'arch_console_organization_invite'
