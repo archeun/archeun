@@ -2,10 +2,10 @@
 from django.contrib import admin
 
 from console.models import Organization, Team, OrganizationOwner, \
-    OrganizationMember, TeamOwner, TeamMember
+    OrganizationMember, TeamOwner, TeamMember, OrganizationInvite
 
 
-class BookInline(admin.TabularInline):
+class TeamInline(admin.TabularInline):
     """
     BookInline
     """
@@ -40,14 +40,22 @@ class TeamMemberInline(admin.TabularInline):
     model = TeamMember
 
 
+class OrganizationInviteInline(admin.TabularInline):
+    """
+    OrganizationInviteInline
+    """
+    model = OrganizationInvite
+
+
 class OrganizationAdmin(admin.ModelAdmin):
     """
     OrganizationAdmin
     """
     inlines = [
-        BookInline,
+        TeamInline,
         OrganizationOwnerInline,
         OrganizationMemberInline,
+        OrganizationInviteInline,
     ]
 
 
