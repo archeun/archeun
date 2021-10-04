@@ -4,8 +4,10 @@ Service layer to handle business logic related to Organizations
 # pylint: disable=imported-auth-user
 from django.contrib.auth.models import User
 from django.db.models import QuerySet
+from django.conf import settings
 
 from console.models import Organization, OrganizationOwner, OrganizationInvite
+from core.services import scheduled_email_service
 
 
 def get_user_organizations(user_id: int) -> QuerySet:
@@ -64,6 +66,46 @@ def invite_organization_members(organization, emails):
     create_organization_invites(organization, emails, OrganizationInvite.ORG_INVITE_TYPE_MEMBER)
 
 
+def get_email_subject_for_invite(invite_type):
+    """
+    Returns the email subject for the given invite type
+    @param invite_type:
+    @return:
+    """
+    member_type_str = 'Owner'
+    if invite_type == OrganizationInvite.ORG_INVITE_TYPE_MEMBER:
+        member_type_str = 'Member'
+    return 'Archeun Organization Invitation - {member_type}'.format(
+        member_type=member_type_str
+    )
+
+
+def get_email_body_for_invite(invite_type, organization_name):
+    """
+    Returns the email body for the given invite type
+    @param invite_type:
+    @param organization_name:
+    @return:
+    """
+    member_type_str = 'an owner'
+    if invite_type == OrganizationInvite.ORG_INVITE_TYPE_MEMBER:
+        member_type_str = 'a member'
+
+    body = """Hello there,
+
+You have been invited as {member_type} of the {organization_name}.
+Please login/register at {site_url} to accept this invitation.
+    
+Thank you.
+archeun.
+    """
+    return body.format(
+        member_type=member_type_str,
+        site_url=settings.ARCHEUN['general']['site_url'],
+        organization_name=organization_name
+    )
+
+
 def create_organization_invites(organization, emails, invite_type):
     """
     Creates OrganizationInvites with the given emails for the given organization and type
@@ -76,6 +118,11 @@ def create_organization_invites(organization, emails, invite_type):
     for email in emails:
         if email not in invited_emails:
             save_organization_invite(organization.id, email, invite_type)
+            scheduled_email_service.schedule(
+                email,
+                get_email_subject_for_invite(invite_type),
+                get_email_body_for_invite(invite_type, organization.name),
+            )
 
 
 def save_organization_invite(organization_id, email, invite_type):

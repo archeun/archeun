@@ -133,3 +133,15 @@ LOGIN_REDIRECT_URL = '/core/user/profile'
 
 # oidc_provider related settings
 OIDC_USERINFO = 'archeun.core.oidc_provider_settings.userinfo'
+
+ARCHEUN = {
+    'general': {
+        'site_url': 'https://archeun.com'
+    },
+    'core': {
+        'email': {
+            'sender_name': 'archeun',
+            'sender_address': 'info@archeun.com',
+        }
+    }
+}
