@@ -75,12 +75,22 @@ def create_organization_invites(organization, emails, invite_type):
     invited_emails = get_organization_invite_emails_by_type(organization, invite_type)
     for email in emails:
         if email not in invited_emails:
-            organization_invite = OrganizationInvite()
-            organization_invite.organization_id = organization.id
-            organization_invite.email = email
-            organization_invite.invite_type = invite_type
-            organization_invite.status = OrganizationInvite.ORG_INVITE_STATUS_PENDING
-            organization_invite.save()
+            save_organization_invite(organization.id, email, invite_type)
+
+
+def save_organization_invite(organization_id, email, invite_type):
+    """
+    Saves the OrganizationInvite in the database
+    @param organization_id:
+    @param email:
+    @param invite_type:
+    """
+    organization_invite = OrganizationInvite()
+    organization_invite.organization_id = organization_id
+    organization_invite.email = email
+    organization_invite.invite_type = invite_type
+    organization_invite.status = OrganizationInvite.ORG_INVITE_STATUS_PENDING
+    organization_invite.save()
 
 
 def get_organization_invite_emails_by_type(organization, invite_type):
