@@ -1,4 +1,5 @@
 """console.views.organizations"""
+# pylint: disable=no-self-use
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, FormView
@@ -157,9 +158,18 @@ class OrganizationInviteOwnersView(FormView):
         self.organization = get_object_or_404(Organization, pk=kwargs['pk'])
         return super().post(request, args, kwargs)
 
+    def persist_invites(self, organization, emails):
+        """
+        Saves the invites for given emails under the given org
+        @param organization:
+        @param emails:
+        @return:
+        """
+        invite_organization_owners(organization, emails)
+
     def form_valid(self, form):
         """If the form is valid, send out emails"""
-        invite_organization_owners(self.organization, form.get_email_list())
+        self.persist_invites(self.organization, form.get_email_list())
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -172,7 +182,11 @@ class OrganizationInviteMembersView(OrganizationInviteOwnersView):
     """
     invite_type = 'Members'
 
-    def form_valid(self, form):
-        """If the form is valid, send out emails"""
-        invite_organization_members(self.organization, form.get_email_list())
-        return super().form_valid(form)
+    def persist_invites(self, organization, emails):
+        """
+        Saves the invites for given emails under the given org
+        @param organization:
+        @param emails:
+        @return:
+        """
+        invite_organization_members(organization, emails)
