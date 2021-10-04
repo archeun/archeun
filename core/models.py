@@ -37,7 +37,7 @@ class ScheduledEmail(models.Model):
     ]
 
     to = models.TextField()
-    cc = models.TextField()
+    cc = models.TextField(blank=True, null=True)
     sender_address = models.CharField(max_length=255)
     sender_name = models.CharField(max_length=255)
     subject = models.CharField(max_length=1000)
