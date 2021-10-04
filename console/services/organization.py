@@ -98,7 +98,7 @@ Please login/register at {site_url} to accept this invitation.
     
 Thank you.
 archeun.
-    """
+"""
     return body.format(
         member_type=member_type_str,
         site_url=settings.ARCHEUN['general']['site_url'],
