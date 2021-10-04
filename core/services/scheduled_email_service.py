@@ -19,8 +19,8 @@ def schedule(
     @return:
     """
     scheduled_email = ScheduledEmail()
-    scheduled_email.to = to_emails
-    scheduled_email.cc = cc_emails
+    scheduled_email.to_emails = to_emails
+    scheduled_email.cc_emails = cc_emails
     scheduled_email.sender_address = settings.ARCHEUN['core']['email']['sender_address']
     scheduled_email.sender_name = sender_name
     scheduled_email.subject = subject

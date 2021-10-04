@@ -32,8 +32,8 @@ class Command(BaseCommand):
                 email.subject,
                 email.body,
                 email.sender_address,
-                get_email_list(email.to),
-                get_email_list(email.cc),
+                get_email_list(email.to_emails),
+                get_email_list(email.cc_emails),
             )
             try:
                 email_to_send.send(fail_silently=False)

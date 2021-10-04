@@ -36,8 +36,8 @@ class ScheduledEmail(models.Model):
         (SCHEDULED_EMAIL_STATUS_FAILED, 'Failed'),
     ]
 
-    to = models.TextField()
-    cc = models.TextField(blank=True, null=True)
+    to_emails = models.TextField()
+    cc_emails = models.TextField(blank=True, null=True)
     sender_address = models.CharField(max_length=255)
     sender_name = models.CharField(max_length=255)
     subject = models.CharField(max_length=1000)
