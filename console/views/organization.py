@@ -163,7 +163,7 @@ class OrganizationInviteOwnersView(FormView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse("arch-console-org-detail", kwargs={'pk': 1})
+        return reverse("arch-console-org-detail", kwargs={'pk': self.organization.id})
 
 
 class OrganizationInviteMembersView(OrganizationInviteOwnersView):
